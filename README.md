@@ -1,6 +1,6 @@
 # RpgKata
 
-**TODO: Add description**
+My first experience with Elixir - forgive my poor code :)
 
 ## Installation
 
