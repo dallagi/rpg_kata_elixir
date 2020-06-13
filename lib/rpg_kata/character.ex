@@ -1,11 +1,14 @@
 defmodule RpgKata.Character do
-  defstruct [:id, :health, :level, :alive]
+  defstruct [:id, :health, :level, :alive, :range]
   alias __MODULE__, as: Character
   @type t :: %Character{id: String.t(), health: number(), level: number(), alive: boolean()}
 
   @spec new() :: t()
-  def new do
-    %Character{id: UUID.uuid1(), health: 1000, level: 1, alive: true}
+  def new, do: new(:melee)
+
+  @spec new(atom()) :: t()
+  def new(range) do
+    %Character{id: UUID.uuid1(), health: 1000, level: 1, alive: true, range: range}
   end
 
   @spec damage(t(), t(), number()) :: t()

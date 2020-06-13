@@ -2,11 +2,15 @@ defmodule RpgKata.CharacterTest do
   use ExUnit.Case
   alias RpgKata.Character
 
-  test "creates a character with default attributes" do
-    assert %Character{health: 1000, level: 1, alive: true} = Character.new()
+  test "new/0 creates a character with default attributes" do
+    assert %Character{health: 1000, level: 1, alive: true, range: :melee} = Character.new()
   end
 
-  describe "damage" do
+  test "new/1 creates a character with the specified range" do
+    assert %Character{health: 1000, level: 1, alive: true, range: :ranged} = Character.new(:ranged)
+  end
+
+  describe "damage/3" do
     test "does nothing on dead character" do
       dead_character = Character.new() |> Character.damage(Character.new(), 1100)
       assert dead_character = Character.damage(dead_character, Character.new(), 100)
@@ -53,7 +57,7 @@ defmodule RpgKata.CharacterTest do
     end
   end
 
-  describe "heal" do
+  describe "heal/3" do
     test "has no effect on dead characters" do
       dead_character = Character.damage(Character.new(), Character.new(), 1100)
       assert dead_character == Character.heal(dead_character, dead_character, 1000)
