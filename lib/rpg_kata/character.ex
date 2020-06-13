@@ -5,7 +5,7 @@ defmodule RpgKata.Character do
 
   @spec new() :: t()
   def new do
-    %Character{id: UUID.uuid1, health: 1000, level: 1, alive: true}
+    %Character{id: UUID.uuid1(), health: 1000, level: 1, alive: true}
   end
 
   @spec damage(t(), t(), number()) :: t()
@@ -21,11 +21,11 @@ defmodule RpgKata.Character do
   defp die(character), do: %Character{character | health: 0, alive: false}
 
   defp inflict_damage(%Character{health: health} = target, amount) when health < amount, do: die(target)
-  defp inflict_damage(character, amount), do: %Character {character | health: character.health - amount}
+  defp inflict_damage(character, amount), do: %Character{character | health: character.health - amount}
 
   defp amount_of_damage(amount, %Character{level: target_level}, %Character{level: attacker_level}) do
     cond do
-      attacker_level >= target_level + 5  -> round(amount * 1.5)
+      attacker_level >= target_level + 5 -> round(amount * 1.5)
       attacker_level <= target_level - 5 -> round(amount * 0.5)
       true -> amount
     end

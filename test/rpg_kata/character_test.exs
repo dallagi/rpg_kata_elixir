@@ -3,7 +3,7 @@ defmodule RpgKata.CharacterTest do
   alias RpgKata.Character
 
   test "creates a character with default attributes" do
-    assert %Character{health: 1000, level: 1, alive: true} = Character.new
+    assert %Character{health: 1000, level: 1, alive: true} = Character.new()
   end
 
   describe "damage" do
@@ -16,6 +16,7 @@ defmodule RpgKata.CharacterTest do
       damaged_character =
         Character.new()
         |> Character.damage(Character.new(), 1100)
+
       assert false == damaged_character.alive
     end
 
@@ -23,6 +24,7 @@ defmodule RpgKata.CharacterTest do
       damaged_character =
         Character.new()
         |> Character.damage(Character.new(), 1100)
+
       assert 0 == damaged_character.health
     end
 
@@ -53,7 +55,7 @@ defmodule RpgKata.CharacterTest do
 
   describe "heal" do
     test "has no effect on dead characters" do
-      dead_character = Character.damage(Character.new, Character.new, 1100)
+      dead_character = Character.damage(Character.new(), Character.new(), 1100)
       assert dead_character == Character.heal(dead_character, dead_character, 1000)
     end
 

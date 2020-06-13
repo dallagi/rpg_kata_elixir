@@ -27,7 +27,7 @@ defmodule RpgKata.MixProject do
 
   defp dev_deps do
     [
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false}
     ]
   end
 end
