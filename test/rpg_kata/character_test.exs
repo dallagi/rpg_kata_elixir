@@ -10,67 +10,49 @@ defmodule RpgKata.CharacterTest do
     assert %Character{health: 1000, level: 1, alive: true, range: :ranged} = Character.new(:ranged)
   end
 
-  describe "damage/3" do
-    test "does nothing on dead character" do
-      dead_character = Character.new() |> Character.damage(Character.new(), 1100)
-      assert dead_character = Character.damage(dead_character, Character.new(), 100)
+  describe "dead?/0" do
+    test "is false when character is alive" do
+      assert false == Character.dead?(Character.new())
     end
 
-    test "kills character when damage exceeds current health" do
-      damaged_character =
-        Character.new()
-        |> Character.damage(Character.new(), 1100)
-
-      assert false == damaged_character.alive
-    end
-
-    test "health goes to zero when character dies" do
-      damaged_character =
-        Character.new()
-        |> Character.damage(Character.new(), 1100)
-
-      assert 0 == damaged_character.health
-    end
-
-    test "reduces health by amount" do
-      assert 900 == Character.damage(Character.new(), Character.new(), 100).health
-    end
-
-    test "cannot be dealt to self" do
-      character = Character.new()
-      offender = character
-      assert 1000 == Character.damage(character, offender, 100).health
-    end
-
-    test "damage is reduced by 50% if target is 5+ levels above the attacker" do
-      attacker = Character.new()
-      target = %Character{Character.new() | level: 6}
-
-      assert 900 == Character.damage(target, attacker, 200).health
-    end
-
-    test "damage is increased by 50% if attacker is 5+ levels above the target" do
-      attacker = %Character{Character.new() | level: 6}
-      target = Character.new()
-
-      assert 700 == Character.damage(target, attacker, 200).health
+    test "is true when character is not alive" do
+      dead_character = Character.die(Character.new())
+      assert true == Character.dead?(dead_character)
     end
   end
 
-  describe "heal/3" do
-    test "has no effect on dead characters" do
-      dead_character = Character.damage(Character.new(), Character.new(), 1100)
-      assert dead_character == Character.heal(dead_character, dead_character, 1000)
+  describe "die/1" do
+    test "does nothing on dead characters" do
+      dead_character = Character.die(Character.new())
+      assert dead_character == Character.die(dead_character)
     end
 
-    test "cannot be done to others" do
-      character = Character.new()
-      assert character == Character.heal(character, Character.new(), 100)
+    test "sets character as dead" do
+      dead_character = Character.die(Character.new())
+      assert true == Character.dead?(dead_character)
     end
 
-    test "restores health" do
-      character = Character.new()
-      assert 1100 == Character.heal(character, character, 100).health
+    test "sets health to zero" do
+      dead_character = Character.die(Character.new())
+      assert 0 == dead_character.health
+    end
+  end
+
+  describe "can_hit?/2" do
+    test "melee characters can hit enemies within 2 meters" do
+      assert true == Character.can_hit?(Character.new(:melee), 2)
+    end
+
+    test "melee characters cannot hit enemies from more than 2 meters of distance" do
+      assert false == Character.can_hit?(Character.new(:melee), 3)
+    end
+
+    test "ranged characters can hit enemies within 20 meters" do
+      assert true == Character.can_hit?(Character.new(:ranged), 20)
+    end
+
+    test "ranged characters cannot hit enemies from more than 20 meters of distance" do
+      assert false == Character.can_hit?(Character.new(:ranged), 21)
     end
   end
 end
