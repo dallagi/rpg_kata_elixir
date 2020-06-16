@@ -1,15 +1,16 @@
 defmodule RpgKata.Character do
-  defstruct [:id, :health, :level, :alive, :range]
+  defstruct [:id, :health, :level, :alive, :range, :factions]
   alias __MODULE__
   alias RpgKata.CharacterRange
 
   @type t() :: %Character{
-          id: String.t(),
-          health: number(),
-          level: number(),
-          alive: boolean(),
-          range: CharacterRange.t()
-        }
+    id: String.t(),
+    health: number(),
+    level: number(),
+    alive: boolean(),
+    range: CharacterRange.t(),
+    factions: MapSet.t(atom())
+  }
 
   @max_distances %{melee: 2, ranged: 20}
 
@@ -23,7 +24,8 @@ defmodule RpgKata.Character do
       health: 1000,
       level: 1,
       alive: true,
-      range: CharacterRange.new(range, @max_distances[range])
+      range: CharacterRange.new(range, @max_distances[range]),
+      factions: MapSet.new()
     }
   end
 
@@ -32,4 +34,14 @@ defmodule RpgKata.Character do
 
   @spec die(t()) :: t()
   def die(character), do: %Character{character | health: 0, alive: false}
+
+  @spec join(t(), atom()) :: t()
+  def join(character, faction) do
+    %Character{character | factions: MapSet.put(character.factions, faction)}
+  end
+
+  @spec leave(t(), atom()) :: t()
+  def leave(character, faction) do
+    %Character{character | factions: MapSet.delete(character.factions, faction)}
+  end
 end
