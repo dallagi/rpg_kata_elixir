@@ -7,7 +7,7 @@ defmodule RpgKata.ActionHeal do
   defp allowed?(target, healer) do
     cond do
       Character.dead?(target) -> false
-      target != healer -> false
+      not Character.ally?(target, healer) -> false
       true -> true
     end
   end
