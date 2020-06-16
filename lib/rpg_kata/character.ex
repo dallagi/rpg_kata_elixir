@@ -44,4 +44,9 @@ defmodule RpgKata.Character do
   def leave(character, faction) do
     %Character{character | factions: MapSet.delete(character.factions, faction)}
   end
+
+  @spec ally?(t(), t()) :: boolean()
+  def ally?(%Character{factions: factions}, %Character{factions: other_factions}) do
+    not MapSet.disjoint?(factions, other_factions)
+  end
 end

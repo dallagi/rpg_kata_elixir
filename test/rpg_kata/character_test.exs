@@ -79,4 +79,26 @@ defmodule RpgKata.CharacterTest do
       assert MapSet.new([:another_faction]) == character.factions
     end
   end
+
+  describe "ally?/2" do
+    test "is false when characters have no faction in common" do
+      assert false == Character.ally?(Character.new(), Character.new())
+    end
+
+    test "is true when characters have a faction in common" do
+      character = Character.new() |> Character.join(:test_faction)
+      other = Character.new() |> Character.join(:test_faction)
+
+      assert true == Character.ally?(character, other)
+    end
+
+    test "is true even if characters have also other factions" do
+      character = Character.new() |> Character.join(:test_faction)
+      other = Character.new()
+              |> Character.join(:test_faction)
+              |> Character.join(:another_faction)
+
+      assert true == Character.ally?(character, other)
+    end
+  end
 end
