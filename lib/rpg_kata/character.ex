@@ -46,7 +46,6 @@ defmodule RpgKata.Character do
   end
 
   @spec ally?(t(), t()) :: boolean()
-  def ally?(%Character{factions: factions}, %Character{factions: other_factions}) do
-    not MapSet.disjoint?(factions, other_factions)
-  end
+  def ally?(character, other) when character == other, do: true
+  def ally?(character, other), do: not MapSet.disjoint?(character.factions, other.factions)
 end

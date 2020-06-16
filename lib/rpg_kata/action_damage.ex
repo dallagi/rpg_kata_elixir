@@ -14,9 +14,8 @@ defmodule ActionDamage do
   defp allowed?(target, offender, distance_meters) do
     cond do
       Character.dead?(target) -> false
-      target == offender -> false
-      not CharacterRange.can_hit?(offender.range, distance_meters) -> false
       Character.ally?(target, offender) -> false
+      not CharacterRange.can_hit?(offender.range, distance_meters) -> false
       true -> true
     end
   end

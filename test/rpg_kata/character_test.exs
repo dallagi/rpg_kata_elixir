@@ -100,5 +100,10 @@ defmodule RpgKata.CharacterTest do
 
       assert true == Character.ally?(character, other)
     end
+
+    test "a character is ally of itself" do
+      character = Character.new()
+      assert true == Character.ally?(character, character)
+    end
   end
 end
