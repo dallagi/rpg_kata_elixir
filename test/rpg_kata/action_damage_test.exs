@@ -14,6 +14,13 @@ defmodule RpgKata.ActionDamageTest do
       assert target == ActionDamage.perform(target, Character.new(), 100, 10)
     end
 
+    test "does nothing when offender and target are allies" do
+      target = Character.join(Character.new(), :test_faction)
+      offender = Character.join(Character.new(), :test_faction)
+
+      assert target == ActionDamage.perform(target, offender, 100, 1)
+    end
+
     test "kills character when damage exceeds current health" do
       damaged_character =
         Character.new()

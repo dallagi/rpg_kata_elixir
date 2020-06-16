@@ -16,6 +16,7 @@ defmodule ActionDamage do
       Character.dead?(target) -> false
       target == offender -> false
       not CharacterRange.can_hit?(offender.range, distance_meters) -> false
+      Character.ally?(target, offender) -> false
       true -> true
     end
   end
