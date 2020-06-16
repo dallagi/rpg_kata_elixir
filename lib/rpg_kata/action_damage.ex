@@ -1,5 +1,6 @@
 defmodule ActionDamage do
   alias RpgKata.Character
+  alias RpgKata.CharacterRange
 
   @spec perform(Character.t(), Character.t(), number(), number()) :: Character.t()
   def perform(target, offender, amount, distance_meters) do
@@ -14,7 +15,7 @@ defmodule ActionDamage do
     cond do
       Character.dead?(target) -> false
       target == offender -> false
-      !Character.can_hit?(offender, distance_meters) -> false
+      not CharacterRange.can_hit?(offender.range, distance_meters) -> false
       true -> true
     end
   end

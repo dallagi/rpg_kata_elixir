@@ -1,13 +1,14 @@
 defmodule RpgKata.CharacterTest do
   use ExUnit.Case
   alias RpgKata.Character
+  alias RpgKata.CharacterRange
 
   test "new/0 creates a character with default attributes" do
-    assert %Character{health: 1000, level: 1, alive: true, range: :melee} = Character.new()
+    assert %Character{health: 1000, level: 1, alive: true, range: %CharacterRange{type: :melee}} = Character.new()
   end
 
   test "new/1 creates a character with the specified range" do
-    assert %Character{health: 1000, level: 1, alive: true, range: :ranged} = Character.new(:ranged)
+    assert %Character{health: 1000, level: 1, alive: true, range: %CharacterRange{type: :ranged}} = Character.new(:ranged)
   end
 
   describe "dead?/0" do
@@ -35,24 +36,6 @@ defmodule RpgKata.CharacterTest do
     test "sets health to zero" do
       dead_character = Character.die(Character.new())
       assert 0 == dead_character.health
-    end
-  end
-
-  describe "can_hit?/2" do
-    test "melee characters can hit enemies within 2 meters" do
-      assert true == Character.can_hit?(Character.new(:melee), 2)
-    end
-
-    test "melee characters cannot hit enemies from more than 2 meters of distance" do
-      assert false == Character.can_hit?(Character.new(:melee), 3)
-    end
-
-    test "ranged characters can hit enemies within 20 meters" do
-      assert true == Character.can_hit?(Character.new(:ranged), 20)
-    end
-
-    test "ranged characters cannot hit enemies from more than 20 meters of distance" do
-      assert false == Character.can_hit?(Character.new(:ranged), 21)
     end
   end
 end
