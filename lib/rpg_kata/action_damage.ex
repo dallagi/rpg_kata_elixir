@@ -2,8 +2,8 @@ defmodule ActionDamage do
   alias RpgKata.Character
   alias RpgKata.CharacterRange
 
-  @spec perform(Character.t(), Character.t(), number(), number()) :: Character.t()
-  def perform(target, offender, amount, distance_meters) do
+  @spec perform(Character.t(), Character.t(), [amount: number(), distance_meters: number()]) :: Character.t()
+  def perform(target, offender, amount: amount, distance_meters: distance_meters) do
     if allowed?(target, offender, distance_meters) do
       do_damage(target, amount_of_damage(amount, target, offender))
     else
