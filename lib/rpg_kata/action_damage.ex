@@ -12,12 +12,9 @@ defmodule ActionDamage do
   end
 
   defp allowed?(target, offender, distance_meters) do
-    cond do
-      Character.dead?(target) -> false
-      Character.ally?(target, offender) -> false
-      not CharacterRange.can_hit?(offender.range, distance_meters) -> false
-      true -> true
-    end
+      not Character.dead?(target)
+      && not Character.ally?(target, offender)
+      && CharacterRange.can_hit?(offender.range, distance_meters)
   end
 
   defp do_damage(%Character{health: health} = target, amount) when health < amount, do: Character.die(target)
