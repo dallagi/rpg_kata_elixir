@@ -2,7 +2,7 @@ defmodule RpgKata.ActionDamageTest do
   use ExUnit.Case
   alias RpgKata.Character
 
-  describe "damage/3" do
+  describe "damage/3 for Character" do
     test "does nothing on dead character" do
       dead_character = Character.die(Character.new())
       assert dead_character = ActionDamage.perform(dead_character, Character.new(), amount: 100, distance_meters: 1)

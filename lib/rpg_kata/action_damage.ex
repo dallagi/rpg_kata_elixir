@@ -1,4 +1,9 @@
-defmodule ActionDamage do
+defprotocol ActionDamage do
+  @spec perform(t(), RpgKata.Character.t(), [amount: number(), distance_meters: number()]) :: t()
+  def perform(target, offender, options)
+end
+
+defimpl ActionDamage, for: RpgKata.Character do
   alias RpgKata.Character
   alias RpgKata.CharacterRange
 
