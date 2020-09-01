@@ -4,10 +4,10 @@ defmodule RpgKata.Thing do
   alias __MODULE__
 
   @type t() :: %Thing{
-    id: String.t(),
-    health: number(),
-    destroyed: boolean(),
-  }
+          id: String.t(),
+          health: number(),
+          destroyed: boolean()
+        }
 
   @spec new(number()) :: t()
   def new(health) do

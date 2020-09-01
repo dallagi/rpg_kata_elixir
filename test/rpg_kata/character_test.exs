@@ -11,7 +11,8 @@ defmodule RpgKata.CharacterTest do
 
   describe "new/1" do
     test "creates a character with the specified range" do
-      assert %Character{health: 1000, level: 1, alive: true, range: %CharacterRange{type: :ranged}} = Character.new(:ranged)
+      assert %Character{health: 1000, level: 1, alive: true, range: %CharacterRange{type: :ranged}} =
+               Character.new(:ranged)
     end
 
     test "new characters are not in any faction" do
@@ -49,16 +50,18 @@ defmodule RpgKata.CharacterTest do
 
   describe "join/2" do
     test "can join a faction" do
-      character = Character.new()
-                  |> Character.join(:test_faction)
+      character =
+        Character.new()
+        |> Character.join(:test_faction)
 
       assert :test_faction in character.factions
     end
 
     test "can join multiple factions" do
-      character = Character.new()
-                  |> Character.join(:test_faction)
-                  |> Character.join(:another_faction)
+      character =
+        Character.new()
+        |> Character.join(:test_faction)
+        |> Character.join(:another_faction)
 
       assert MapSet.new([:test_faction, :another_faction]) == character.factions
     end
@@ -71,10 +74,11 @@ defmodule RpgKata.CharacterTest do
     end
 
     test "removes character from faction" do
-      character = Character.new()
-                  |> Character.join(:test_faction)
-                  |> Character.join(:another_faction)
-                  |> Character.leave(:test_faction)
+      character =
+        Character.new()
+        |> Character.join(:test_faction)
+        |> Character.join(:another_faction)
+        |> Character.leave(:test_faction)
 
       assert MapSet.new([:another_faction]) == character.factions
     end
@@ -94,9 +98,11 @@ defmodule RpgKata.CharacterTest do
 
     test "is true even if characters have also other factions" do
       character = Character.new() |> Character.join(:test_faction)
-      other = Character.new()
-              |> Character.join(:test_faction)
-              |> Character.join(:another_faction)
+
+      other =
+        Character.new()
+        |> Character.join(:test_faction)
+        |> Character.join(:another_faction)
 
       assert true == Character.ally?(character, other)
     end

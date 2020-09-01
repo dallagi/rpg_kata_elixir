@@ -4,13 +4,13 @@ defmodule RpgKata.Character do
   alias RpgKata.CharacterRange
 
   @type t() :: %Character{
-    id: String.t(),
-    health: number(),
-    level: number(),
-    alive: boolean(),
-    range: CharacterRange.t(),
-    factions: MapSet.t(atom())
-  }
+          id: String.t(),
+          health: number(),
+          level: number(),
+          alive: boolean(),
+          range: CharacterRange.t(),
+          factions: MapSet.t(atom())
+        }
 
   @max_distances %{melee: 2, ranged: 20}
 
