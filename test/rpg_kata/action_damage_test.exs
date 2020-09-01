@@ -1,6 +1,7 @@
 defmodule RpgKata.ActionDamageTest do
   use ExUnit.Case
   alias RpgKata.Character
+  alias RpgKata.Thing
 
   describe "damage/3 for Character" do
     test "does nothing on dead character" do
@@ -51,6 +52,31 @@ defmodule RpgKata.ActionDamageTest do
       target = Character.new()
 
       assert 700 == ActionDamage.perform(target, attacker, amount: 200, distance_meters: 1).health
+    end
+  end
+
+  describe "damage/3 for Thing" do
+    test "does nothing on destroyed thing" do
+      destroyed_thing = Thing.destroy(Thing.new(1000))
+      assert destroyed_thing = ActionDamage.perform(destroyed_thing, Character.new(), amount: 100, distance_meters: 1)
+    end
+
+    test "does nothing when target is out of range" do
+      target = Thing.new(1000)
+
+      assert target == ActionDamage.perform(target, Character.new(), amount: 100, distance_meters: 10)
+    end
+
+    test "destroys thing when damage exceeds current health" do
+      damaged_thing =
+        Thing.new(100)
+        |> ActionDamage.perform(Character.new(), amount: 200, distance_meters: 1)
+
+      assert true == damaged_thing.destroyed
+    end
+
+    test "reduces health by amount" do
+      assert 100 == ActionDamage.perform(Thing.new(200), Character.new(), amount: 100, distance_meters: 1).health
     end
   end
 end
