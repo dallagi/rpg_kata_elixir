@@ -1,5 +1,5 @@
 defmodule RpgKata.ActionHealTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   alias RpgKata.ActionHeal
   alias RpgKata.Character
 

@@ -1,5 +1,6 @@
 defmodule RpgKata.ActionDamageTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
+
   alias RpgKata.Character
   alias RpgKata.Thing
 

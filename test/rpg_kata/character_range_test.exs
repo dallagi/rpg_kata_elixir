@@ -1,5 +1,5 @@
 defmodule RpgKata.CharacterRangeTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   alias RpgKata.CharacterRange
 
   describe "can_hit?/2" do
