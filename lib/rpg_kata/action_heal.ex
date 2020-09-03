@@ -5,11 +5,8 @@ defmodule RpgKata.ActionHeal do
   def perform(target, healer, amount), do: if(allowed?(target, healer), do: do_heal(target, amount), else: target)
 
   defp allowed?(target, healer) do
-    cond do
-      Character.dead?(target) -> false
-      not Character.ally?(target, healer) -> false
-      true -> true
-    end
+    Character.ally?(target, healer) &&
+      not Character.dead?(target)
   end
 
   defp do_heal(character, amount), do: %Character{character | health: character.health + amount}
