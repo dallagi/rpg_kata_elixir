@@ -4,8 +4,7 @@ defprotocol ActionDamage do
 end
 
 defimpl ActionDamage, for: RpgKata.Character do
-  alias RpgKata.Character
-  alias RpgKata.CharacterRange
+  alias RpgKata.{Character, CharacterRange}
 
   @spec perform(Character.t(), Character.t(), amount: number(), distance_meters: number()) :: Character.t()
   def perform(target, offender, amount: amount, distance_meters: distance_meters) do
@@ -35,9 +34,7 @@ defimpl ActionDamage, for: RpgKata.Character do
 end
 
 defimpl ActionDamage, for: RpgKata.Thing do
-  alias RpgKata.Thing
-  alias RpgKata.Character
-  alias RpgKata.CharacterRange
+  alias RpgKata.{Character, CharacterRange, Thing}
 
   @spec perform(Thing.t(), Character.t(), amount: number(), distance_meters: number()) :: Thing.t()
   def perform(target, offender, amount: amount, distance_meters: distance_meters) do

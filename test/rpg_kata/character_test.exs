@@ -1,7 +1,6 @@
 defmodule RpgKata.CharacterTest do
   use ExUnit.Case, async: true
-  alias RpgKata.Character
-  alias RpgKata.CharacterRange
+  alias RpgKata.{Character, CharacterRange}
 
   describe "new/0" do
     test "creates a character with default attributes" do

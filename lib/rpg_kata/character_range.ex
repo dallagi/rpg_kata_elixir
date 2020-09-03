@@ -1,5 +1,5 @@
 defmodule RpgKata.CharacterRange do
-  alias __MODULE__, as: CharacterRange
+  alias __MODULE__
 
   defstruct [:type, :max_distance]
   @type t() :: %CharacterRange{type: atom(), max_distance: number()}

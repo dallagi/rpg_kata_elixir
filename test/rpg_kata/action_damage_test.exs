@@ -1,8 +1,7 @@
 defmodule RpgKata.ActionDamageTest do
   use ExUnit.Case, async: true
 
-  alias RpgKata.Character
-  alias RpgKata.Thing
+  alias RpgKata.{Character, Thing}
 
   describe "damage/3 for Character" do
     test "does nothing on dead character" do
