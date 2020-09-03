@@ -45,8 +45,8 @@ defimpl ActionDamage, for: RpgKata.Thing do
     end
   end
 
-  def allowed?(%Thing{destroyed: true}, _offender, _distance_meters), do: false
-  def allowed?(_target, offender, distance_meters), do: CharacterRange.can_hit?(offender.range, distance_meters)
+  defp allowed?(%Thing{destroyed: true}, _offender, _distance_meters), do: false
+  defp allowed?(_target, offender, distance_meters), do: CharacterRange.can_hit?(offender.range, distance_meters)
 
   defp do_damage(%Thing{health: health} = target, amount) when health < amount, do: Thing.destroy(target)
   defp do_damage(thing, amount), do: %Thing{thing | health: thing.health - amount}
